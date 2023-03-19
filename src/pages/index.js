@@ -1,12 +1,14 @@
-import * as React from "react";
+import * as React from 'react'
+import Layout from '../components/layout'
 
-const Homepage = () =>{
+const Home = () =>{
   return (
-    <>
-      <h1>Hello World!</h1>
-      <p>How are you today?</p>;
-    </>
+    <main>
+      <Layout pageHeading='Home' pageTitle='Home Page'>
+        Welcome, this is my site!
+    </Layout>
+    </main>
   );
 };
 
-export default Homepage;
+export default Home;

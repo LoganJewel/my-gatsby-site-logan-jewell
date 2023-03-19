@@ -1,10 +1,13 @@
-import * as React from "react";
+import * as React from 'react';
+import Layout from '../components/layout'
 
 const About = () =>{
     return(
-        <div>
-            <h1>This is the about page</h1>
-        </div>
+        <main>
+            <Layout pageHeading='About' pageTitle='About Page'>
+            Welcome to the about page!
+            </Layout>
+        </main>
     );
 };
 
