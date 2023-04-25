@@ -35,29 +35,24 @@ query MyQuery{
         }
     }
     `).then(result => {
-                if (result.errors){
-                    reject(result.errors)
-                }
-        console.log("PAGES");
-                console.log(result.data.Drupal.nodeRecipes);
-                const pages = result.data.Drupal.nodeRecipes.edges;
+            if (result.errors) {
+            reject(result.errors)
+            }
+            const pages = result.data.Drupal.nodeRecipes.edges; 
 
-                pages.forEach(({ node }, index) => {
-            console.log("Path: ");
-            console.log(node.path);
-                    const page_path = node.path
-                    console.log(page_path);
+            pages.forEach(({ node }, index) => {
+            const page_path = node.path
 
-                    createPage({
-                        path: `${page_path}`,
-                        component: pageTemplate,
-                        context: {
-                            nid: node.id,
-                            data: node,
-                        },
-                    })
-                })
+            createPage({
+                path: `${page_path}`,
+                component: pageTemplate,
+                context: {
+                nid: node.id,  
+                data: node, 
+                },
             })
+            })
+        })
         )
     });
 }
