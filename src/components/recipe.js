@@ -1,9 +1,10 @@
 import React from 'react'
 
 const pageTemplate = props => {
+    var recipeCategories = "";
+    var recipeTags = "";
+    
     const data = {
-
-        
         nodeFood: props.pageContext.data
     }
 
