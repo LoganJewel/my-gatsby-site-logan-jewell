@@ -13,27 +13,32 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = ({ actions, graphql }) => {
     const { createPage } = actions
     return new Promise((resolve, reject) => {
-        const pageTemplate = path.resolve('src/pages/recipe.js')
+        const pageTemplate = path.resolve('src/components/recipe.js')
         resolve(
             graphql(`
-query MyQuery{
-    Drupal{
-        nodesRecipes(first: 100) {
-            edges {
-                node {
-                    changed 
-                    id 
-                    cookingTime
-                    created 
-                    path 
-                    status 
-                    title 
-                    preparationTime
-                    numberOfServings
+            query MyQuery {
+                Drupal {
+                  nodeRecipes(first: 10) {
+                    edges {
+                      node {
+                        changed
+                        id
+                        cookingTime
+                        created
+                        path
+                        title
+                        preparationTime
+                        numberOfServings
+                        recipeInstruction {
+                          format
+                          processed
+                          value
+                        }
+                      }
+                    }
+                  }
                 }
-            }
-        }
-    }
+              }
     `).then(result => {
             if (result.errors) {
             reject(result.errors)
