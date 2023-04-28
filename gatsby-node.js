@@ -13,7 +13,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = ({ actions, graphql }) => {
     const { createPage } = actions
     return new Promise((resolve, reject) => {
-        const pageTemplate = path.resolve('src/components/recipe.js')
+        const recipeTemplate = path.resolve('src/components/recipe.js')
         resolve(
             graphql(`
             query MyQuery {
@@ -29,10 +29,23 @@ exports.createPages = ({ actions, graphql }) => {
                         title
                         preparationTime
                         numberOfServings
+                        recipeCategory {
+                            name
+                        }
+                        tags {
+                            name
+                        }
                         recipeInstruction {
                           format
                           processed
                           value
+                        }
+                        mediaImage {
+                            mediaImage {
+                              url
+                              height
+                              width
+                            }
                         }
                       }
                     }
@@ -50,7 +63,7 @@ exports.createPages = ({ actions, graphql }) => {
 
             createPage({
                 path: `${page_path}`,
-                component: pageTemplate,
+                component: recipeTemplate,
                 context: {
                 nid: node.id,  
                 data: node, 
@@ -59,5 +72,56 @@ exports.createPages = ({ actions, graphql }) => {
             })
         })
         )
+
+        const articleTemplate = path.resolve('src/components/article.js')
+        resolve(
+            graphql(`
+            query MyQuery {
+              Drupal {
+                nodeArticles {
+                  edges {
+                    node {
+                      changed
+                      id
+                      tags {
+                        name
+                      }
+                      mediaImage {
+                        mediaImage {
+                          url
+                          height
+                          width
+                        }
+                      }
+                      title
+                      author {
+                        displayName
+                      }
+                    }
+                  }
+                }
+              }
+            }
+    `).then(result => {
+            if (result.errors) {
+            reject(result.errors)
+            }
+            const pages = result.data.Drupal.nodeArticles.edges; 
+
+            pages.forEach(({ node }, index) => {
+            const page_path = node.path
+
+            createPage({
+                path: `${page_path}`,
+                component: articleTemplate,
+                context: {
+                nid: node.id,  
+                data: node, 
+                },
+            })
+            })
+        })
+        )
+    
     });
 }
