@@ -18,7 +18,7 @@ exports.createPages = ({ actions, graphql }) => {
             graphql(`
             query MyQuery {
                 Drupal {
-                  nodeRecipes(first: 10) {
+                  nodeRecipes(first: 100) {
                     edges {
                       node {
                         changed
@@ -78,7 +78,7 @@ exports.createPages = ({ actions, graphql }) => {
             graphql(`
             query MyQuery {
               Drupal {
-                nodeArticles {
+                nodeArticles(first: 100) {
                   edges {
                     node {
                       changed
@@ -122,6 +122,5 @@ exports.createPages = ({ actions, graphql }) => {
             })
         })
         )
-    
     });
 }
