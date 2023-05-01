@@ -3,6 +3,8 @@ import React from 'react'
 const recipeTemplate = props => {
     var recipeCategories = "";
     var recipeTags = "";
+
+    console.log(data);
     
     const data = {
         nodeFood: props.pageContext.data
