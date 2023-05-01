@@ -9,20 +9,10 @@ import {siteTitle} from './layout.module.css'
 
 console.log('container: ', container)
 
-const Layout = ({ pageTitle, pageHeading, children }) =>{
-  const data = useStaticQuery(graphql`
-    query MyQuery {
-      site {
-        siteMetadata {
-          title
-        }
-      }
-    }
-  `);
+const Layout = ({ siteTitle, children }) =>{
   return (
     <main className={container}>
-        <title>{(pageTitle) | (data.site.siteMetadata.title)}</title>
-        <p className={siteTitle}>(data.site.siteMetadata.title)</p>
+        <p className={heading}>{siteTitle}</p>
         <nav>
             <ul className={navLinks}>
                 <li className={navLinkItem}><Link to="/" className={navLinkText}>Home</Link></li>
@@ -31,7 +21,6 @@ const Layout = ({ pageTitle, pageHeading, children }) =>{
                 <li className={navLinkItem}><Link to="/blog" className={navLinkText}>Blog</Link></li>
             </ul>
         </nav>
-        <h1 className={heading}>{pageHeading}</h1>
         {children}
     </main>
   );

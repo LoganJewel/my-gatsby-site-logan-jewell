@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { graphql } from 'gatsby'
 import Layout from '../../components/layout'
 import Seo from '../../components/seo'
 
@@ -11,6 +12,7 @@ const BlogPost = ({data, children }) => {
   )
 }
 
+
 export const query = graphql`
   query ($id: String) {
     mdx(id: {eq: $id}) {
@@ -21,6 +23,7 @@ export const query = graphql`
     }
   }
 `
+
 
 export const Head = () => <Seo title={data.mdx.frontmatter.title}/>
 
